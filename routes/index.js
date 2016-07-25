@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
 
 var baseURL = "http://169.254.169.254/latest/meta-data";
 
+var arr = [ 'a', 'b', 'c'];
+
 // ami-id
 // ami-launch-index
 // ami-manifest-path
