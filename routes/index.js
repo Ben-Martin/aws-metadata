@@ -11,8 +11,6 @@ router.get('/', function(req, res, next) {
 
 var baseURL = "http://169.254.169.254/latest/meta-data";
 
-var arr = [ 'a', 'b', 'c'];
-
 // ami-id
 // ami-launch-index
 // ami-manifest-path
@@ -35,16 +33,15 @@ var arr = [ 'a', 'b', 'c'];
 // security-groups
 // services/
 
-// var options = {
-//   host: baseURL,
-//   port: 80,
-//   path: '/public-ipv4'
-// };
-
 request(baseURL + '/public-ipv4', function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    ip = body;
-    // console.log(body) // Show the HTML for the Google homepage. 
+    public_ipv4 = body;
+  }
+});
+
+request(baseURL + '/public-hostname', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    public_hostname = body;
   }
 });
 
