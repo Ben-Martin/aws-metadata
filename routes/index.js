@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var http = require('http');
+var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -33,19 +33,27 @@ var baseURL = "http://169.254.169.254/latest/meta-data";
 // security-groups
 // services/
 
-var options = {
-  host: baseURL,
-  path: '/public-ipv4'
-};
+// var options = {
+//   host: baseURL,
+//   port: 80,
+//   path: '/public-ipv4'
+// };
 
-http.get(options, function(res) {
-    statusCode = res.statusCode;
-    res.on("data", function(chunk) {
-        ip = chunk;
-    });
-}).on('error', function(e) {
-    message = e.message;
-  console.log("Got error: " + e.message);
+request(baseURL + '/public-ipv4', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    ip = body;
+    // console.log(body) // Show the HTML for the Google homepage. 
+  }
 });
+
+// http.get(options, function(res) {
+//     statusCode = res.statusCode;
+//     res.on("data", function(chunk) {
+//         ip = chunk;
+//     });
+// }).on('error', function(e) {
+//     message = e.message;
+//   console.log("Got error: " + e.message);
+// });
 
 module.exports = router;
